@@ -1,0 +1,14 @@
+{
+  "host": "localhost",
+  "port": 8888,
+  "mysql": "mysql://root:@localhost:3306/kueste-gegen-plastik",
+  "opengtindb" : "4711",
+  "public": "../public/",
+  "auth": {
+    "idField": "id",
+    "token": {
+      "secret": "secret"
+    },
+    "local": {}
+  }
+}
