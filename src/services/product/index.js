@@ -26,4 +26,6 @@ module.exports = function(){
 
   // Set up our after hooks
   productService.after(hooks.after);
+
+
 };

@@ -17,6 +17,10 @@ module.exports = function(sequelize, app) {
       autoIncrement: true,
       primaryKey: true
     },
+    barcode: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
 		email: {
       type: Sequelize.STRING
     },
