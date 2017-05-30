@@ -6,7 +6,6 @@ const favicon = require('serve-favicon');
 const compress = require('compression');
 const cors = require('cors');
 const feathers = require('feathers');
-const swagger = require('feathers-swagger');
 const configuration = require('feathers-configuration');
 const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
@@ -29,14 +28,6 @@ app.use(compress())
   .configure(hooks())
   .configure(rest())
   .configure(socketio())
-  .configure(swagger({
-    docsPath: '/docs',
-    uiIndex: true,
-    info: {
-      title: 'A test',
-      description: 'A description'
-    }
-  }))
   .configure(services)
   .configure(middleware);
 
