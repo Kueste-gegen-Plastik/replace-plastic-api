@@ -1,0 +1,8 @@
+{
+  "apps" : [{
+    "name"        : "replaceplastic-api",
+    "script"      : "./src",
+    "watch"       : "./src",
+    "log_date_format"  : "YYYY-MM-DD HH:mm Z"
+  }]
+}

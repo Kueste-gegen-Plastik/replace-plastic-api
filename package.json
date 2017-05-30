@@ -18,7 +18,7 @@
   "scripts": {
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
-    "start": "nodemon src/",
+    "start": "pm2 start processes.json",
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
