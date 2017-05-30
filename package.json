@@ -27,7 +27,7 @@
     "compression": "^1.6.2",
     "cors": "^2.8.3",
     "feathers": "^2.1.2",
-    "feathers-authenticatiopm ": "^0.7.12",
+    "feathers-authentication ": "^0.7.12",
     "feathers-configuration": "^0.3.3",
     "feathers-errors": "^2.6.3",
     "feathers-hooks": "^1.8.1",
