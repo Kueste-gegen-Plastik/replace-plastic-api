@@ -15,6 +15,9 @@ var searchProduct = function(bc, hook) {
         Object.assign(result, res.data[0]);
       }
       return hook.app.service('product').create(result).then(res => {
+        if(typeof res.data === 'undefined') {
+          return res;
+        }
         var productsMapped = res.data.map(product => {
           return product.get({ plain: true })
         });
