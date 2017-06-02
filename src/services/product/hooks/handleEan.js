@@ -11,10 +11,14 @@ var searchProduct = function(bc, hook) {
     return eanDb.get(bc).then(res => {
       if(res.hasOwnProperty('error') && parseInt(res.error) == 0) {
         res.data[0].contents = res.data[0].contents.join(',');
+        res.data[0].pack = res.data[0].pack.join(',');
         Object.assign(result, res.data[0]);
       }
       return hook.app.service('product').create(result).then(res => {
-        return Promise.resolve(hook);
+        var productsMapped = res.data.map(product => {
+          return product.get({ plain: true })
+        });
+        return productsMapped;
       });
     });
   } catch(err) {
@@ -48,6 +52,9 @@ module.exports = function(options) {
         // product not existant: query the gtindb
         return searchProduct(bc, hook).then(res => {
           hook.result = res.data;
+          console.log("RES!", res);
+          console.log("RESDATA!", res.data);
+          Promise.resolve(hook);
         });
       }
     }).catch(err => {

@@ -49,7 +49,7 @@ module.exports = function(sequelize) {
       type: Sequelize.STRING
     },
 		pack: {
-      type: Sequelize.INTEGER(11)
+      type: Sequelize.STRING
     },
 		origin: {
       type: Sequelize.STRING(45)
