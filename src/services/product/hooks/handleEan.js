@@ -12,6 +12,10 @@ var searchProduct = function(bc, hook) {
       if(res.hasOwnProperty('error') && parseInt(res.error) == 0) {
         res.data[0].contents = res.data[0].contents.join(',');
         res.data[0].pack = res.data[0].pack.join(',');
+        res.data[0].maincat = res.data[0].maincat == '' ? -1 : res.data[0].maincat;
+        res.data[0].subcat = res.data[0].subcat == '' ? -1 : res.data[0].subcat;
+        res.data[0].maincatnum = res.data[0].maincatnum == '' ? -1 : res.data[0].maincatnum;
+        res.data[0].subcatnum = res.data[0].subcatnum == '' ? -1 : res.data[0].subcatnum;
         Object.assign(result, res.data[0]);
       }
       return hook.app.service('product').create(result).then(res => {
@@ -55,8 +59,6 @@ module.exports = function(options) {
         // product not existant: query the gtindb
         return searchProduct(bc, hook).then(res => {
           hook.result = res.data;
-          console.log("RES!", res);
-          console.log("RESDATA!", res.data);
           Promise.resolve(hook);
         });
       }
