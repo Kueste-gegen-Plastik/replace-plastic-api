@@ -21,6 +21,8 @@ var createProductEntry = function(bc, hook) {
       return hook.app.service('product').create(result).then(res => {
         return Promise.resolve(hook);
       });
+    }).catch(err => {
+
     });
   } catch(err) {
     return hook.app.service('product').create(result).then(res => {
@@ -54,7 +56,19 @@ module.exports = function(options) {
         return Promise.resolve(hook);
       } else {
         // product not existant: query the gtindb
-        return createProductEntry(bc, hook);
+        return createProductEntry(bc, hook).then(product => {
+          var productMapped = product.data.map(product => {
+            return product.get({ plain: true })
+          });
+          hook.data.ProductId = productMapped[0].id;
+          hook.data.sent = false;
+          return Promise.resolve(hook);
+        }).catch(err => {
+          hook.data.ProductId = null;
+          hook.data.sent = false;
+          // no product found in the db
+          return Promise.resolve(hook);
+        });
       }
     }).then(res => {
       return Promise.resolve(hook);
