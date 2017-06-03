@@ -1,6 +1,7 @@
 var OpenGtinDB = require('opengtindb-client'),
     Barcoder = require('barcoder'),
-    utf8 = require('utf8');
+    utf8 = require('utf8'),
+    errors = require('feathers-errors');
 
 var searchProduct = function(bc, hook) {
   var result = {
@@ -26,8 +27,8 @@ var searchProduct = function(bc, hook) {
           return product.get({ plain: true })
         });
         return productsMapped;
-      });
-    });
+      })
+    })
   } catch(err) {
     return Promise.reject(err);
   }
@@ -63,7 +64,11 @@ module.exports = function(options) {
         });
       }
     }).catch(err => {
-      throw new Error(err.message);
+      if(err.message == 'die EAN konnte nicht gefunden werden') {
+        throw new errors.NotFound('Die EAN konnte nicht gefunden werden');
+      } else {
+        throw new Error(err.message);
+      }
     })
   };
 };

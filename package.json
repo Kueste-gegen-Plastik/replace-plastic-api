@@ -29,7 +29,7 @@
     "feathers": "^2.1.2",
     "feathers-authentication ": "^0.7.12",
     "feathers-configuration": "^0.3.3",
-    "feathers-errors": "^2.6.3",
+    "feathers-errors": "^2.8.1",
     "feathers-hooks": "^1.8.1",
     "feathers-rest": "^1.7.1",
     "feathers-sequelize": "^1.4.5",
