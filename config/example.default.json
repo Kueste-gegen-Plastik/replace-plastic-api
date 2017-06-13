@@ -4,6 +4,17 @@
   "mysql": "mysql://root:@localhost:3306/kueste-gegen-plastik",
   "opengtindb" : "4711",
   "public": "../public/",
+  "mailserver": {
+    "host": "smtp.example.com",
+    "port": 465,
+    "secure": true, // secure:true for port 465, secure:false for port 587
+    "auth": {
+      "user": "username@example.com",
+      "pass": "userpass"
+    },
+    "from": "foo@blurdybloop.com", // sender address
+    "subject": "Hello 123 ✔" // Subject line
+  },
   "auth": {
     "idField": "id",
     "token": {

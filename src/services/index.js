@@ -10,8 +10,8 @@ module.exports = function() {
   const app = this;
 
   const sequelize = new Sequelize(app.get('mysql'), {
-    dialect: 'mysql'
-   /* ,logging: console.log*/
+    dialect: 'mysql',
+    logging: console.log
   });
   app.set('sequelize', sequelize);
 
