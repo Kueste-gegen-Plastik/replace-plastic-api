@@ -1,4 +1,5 @@
 'use strict';
+const mail = require('./mail');
 const vendor = require('./vendor');
 const product = require('./product');
 const entry = require('./entry');
@@ -20,6 +21,7 @@ module.exports = function() {
   app.configure(vendor);
   app.configure(product);
   app.configure(entry);
+  app.configure(mail);
 
   // Associate all of our models
   Object.keys(sequelize.models)

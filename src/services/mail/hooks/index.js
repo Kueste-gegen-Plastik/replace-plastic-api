@@ -3,42 +3,29 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
-const queryEan = require('./queryEan.js');
-const createMail = require('./createMail.js');
 
 exports.before = {
   all: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.restrictToAuthenticated(),
   ],
-  find: [
-    auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
-    })
-  ],
-  get: [
-    auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
-    })
-  ],
-  create: [
-    queryEan(),
-    createMail()
-  ],
+  find: [],
+  get: [],
+  create: [],
   update: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin']
     })
   ],
   patch: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin']
     })
   ],
   remove: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin']
     })
   ]
 };

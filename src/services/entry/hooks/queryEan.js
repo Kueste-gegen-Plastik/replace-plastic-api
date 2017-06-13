@@ -50,8 +50,10 @@ module.exports = function(options) {
         var id;
         products.data.forEach(product => {
           id = product.getDataValue('id');
+          vendorId = product.getDataValue('vendorcontactId');
         });
         hook.data.ProductId = id;
+        hook.data.VendorId = vendorId;
         hook.data.sent = false;
         return Promise.resolve(hook);
       } else {
