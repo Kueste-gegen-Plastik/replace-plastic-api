@@ -13,8 +13,8 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
-const mailstatus = require('./lib/mailstatus');
-const MailCron = require('./lib/mailcron');
+const mailstatus = require('./custom/mailstatus');
+const MailCron = require('./custom/mailcron');
 const EventEmitter = require('events');
 
 const app = feathers();
