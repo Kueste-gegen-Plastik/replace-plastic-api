@@ -15,7 +15,13 @@ exports.before = {
   find: [
     auth.restrictToRoles({
       roles: ['admin', 'editor', 'reader']
-    })
+    }),
+    function(hook) {
+        let sequelize = hook.app.get('sequelize');
+        hook.params.sequelize = {
+            include: [sequelize.models.Product]
+        }
+    }
   ],
   get: [
     auth.restrictToRoles({

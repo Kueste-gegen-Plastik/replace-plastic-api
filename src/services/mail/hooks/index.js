@@ -10,7 +10,21 @@ exports.before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
   ],
-  find: [],
+  find: [
+    function(hook) {
+        let sequelize = hook.app.get('sequelize');
+        // Get the Sequelize instance. In the generated application via:
+        hook.params.sequelize = {
+          include: [ {
+              model: sequelize.models.Product,
+              as: 'product'
+            }, {
+              model: sequelize.models.Vendor,
+              as: 'vendor'
+            } ]
+        }
+    }
+  ],
   get: [],
   create: [],
   update: [

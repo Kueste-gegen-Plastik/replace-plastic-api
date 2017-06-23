@@ -3,6 +3,7 @@ const mail = require('./mail');
 const vendor = require('./vendor');
 const product = require('./product');
 const entry = require('./entry');
+const mailstatus = require('./mailstatus');
 const authentication = require('./authentication');
 const user = require('./user');
 const Sequelize = require('sequelize');
@@ -22,6 +23,7 @@ module.exports = function() {
   app.configure(product);
   app.configure(entry);
   app.configure(mail);
+  app.configure(mailstatus);
 
   // Associate all of our models
   Object.keys(sequelize.models)
