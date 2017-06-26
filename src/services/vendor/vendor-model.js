@@ -16,6 +16,9 @@ module.exports = function(sequelize) {
       unique: true,
       primaryKey: true
     },
+    vendorname: {
+      type: Sequelize.STRING
+    },
     email: {
       type: Sequelize.STRING
     },

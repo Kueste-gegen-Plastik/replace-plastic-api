@@ -9,6 +9,9 @@ exports.before = {
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
+    auth.restrictToRoles({
+      roles: ['admin']
+    })
   ],
   find: [
     function(hook) {
@@ -27,21 +30,9 @@ exports.before = {
   ],
   get: [],
   create: [],
-  update: [
-    auth.restrictToRoles({
-      roles: ['admin']
-    })
-  ],
-  patch: [
-    auth.restrictToRoles({
-      roles: ['admin']
-    })
-  ],
-  remove: [
-    auth.restrictToRoles({
-      roles: ['admin']
-    })
-  ]
+  update: [],
+  patch: [],
+  remove: []
 };
 
 exports.after = {
