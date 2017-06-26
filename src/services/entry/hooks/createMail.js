@@ -1,6 +1,5 @@
-var OpenGtinDB = require('opengtindb-client'),
-    Barcoder = require('barcoder'),
-    utf8 = require('utf8');
+const OpenGtinDB = require('opengtindb-client');
+const Barcoder = require('barcoder');
 
 module.exports = function(options) {
   return function(hook) {
@@ -18,13 +17,14 @@ module.exports = function(options) {
       } else {
         return hook.app.service('mails').create({
           sent: 0,
-          text: `HUHUHUHU`,
           productId: hook.data.ProductId || null,
           vendorId: hook.data.VendorId || null,
           createdAt: new Date().getTime(),
           updatedAt: new Date().getTime()
         }).then(res => {
           return Promise.resolve(hook);
+        }).catch(err => {
+          console.log("Error", err);
         });
       }
     });

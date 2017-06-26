@@ -1,5 +1,8 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
+const swig = require('swig');
+const template = swig.compileFile(__dirname + '/../mails/vendor.swig');
+const htmlToText = require('html-to-text');
 
 class MailCron {
 
@@ -47,24 +50,52 @@ class MailCron {
    * @returns undefined
    */
   sendMails(mails) {
+    // iterate each mail to send
     mails.forEach(mail => {
+      // get the vendor contact
+      let foundEntries = [], foundVendor;
       this.app.service('vendors').get(mail.vendorId).then(vendor => {
         if(!vendor || !vendor.hasOwnProperty('dataValues') || !vendor.dataValues.email) return Promise.reject('No valid vendor Data');
-        return this.mailer.sendMail(Object.assign(this.config, {
-            to: vendor.dataValues.email,
-            text: mail.text
-        })).then(res => {
-          // mail sent
-          return this.app.service('mails').patch(mail.id, {
-            sent : 1
-          });
-        }).then(res => {
-          console.log("Mail sent!");
+        // get all entries that aren't sent yet
+        foundVendor = vendor;
+        return this.app.service('entries').find({
+          query: {
+            ProductId: mail.productId,
+            sent: 0
+          }
         });
+      }).then(entries => {
+        foundEntries = entries.data;
+        if(!foundEntries.length) return Promise.reject('No entries found for sending a mail!');
+        return this.app.service('product').get(mail.productId);
+      }).then(product => {
+        if(!product || !product.hasOwnProperty('dataValues') || !product.dataValues.detailname) return Promise.reject('No valid product found');
+        let mailText = template({
+          entriesamount: foundEntries.length,
+          product: product.dataValues.detailname
+        });
+        return this.mailer.sendMail(Object.assign(this.config, {
+            to: foundVendor.dataValues.email,
+            html: mailText,
+            text: htmlToText.fromString(mailText)
+        }));
+      }).then(res => {
+        // mail sent
+        return this.app.service('mails').patch(mail.id, {
+          sent : 1
+        });
+      }).then(res => {
+        return Promise.all(foundEntries.map(entry => {
+          return this.app.service('entries').patch(entry.dataValues.id, {
+            sent: 1
+          });
+        }));
+      }).then(res => {
+        console.log("Mail sent!");
       }).catch(err => {
         console.log("MAIL FAILED", err)
-      })
-    })
+      });
+    });
   }
 
   /**
@@ -80,13 +111,21 @@ class MailCron {
       }
     }).then(mails => {
       if(mails.hasOwnProperty('total') && mails.total > 0) {
-        return mails.data
-          .filter(mail =>mail.productId && mail.vendorId)
+        let retVal = mails.data.filter(mail => mail.productId && mail.vendorId)
           .map(itm => itm.dataValues);
+        if(retVal.length < mails.data.length) {
+          // send mails to admin: reminder to add vendors to products
+          this.sendReminderMails(mails);
+        }
+        return retVal;
       } else {
         return [];
       }
     })
+  }
+
+  sendReminderMails() {
+    // @TODO
   }
 
 }

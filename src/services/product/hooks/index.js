@@ -3,6 +3,7 @@
 const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
+const { unless, isProvider } = require('feathers-hooks-common')
 const handleEan = require('./handleEan');
 // 'admin', 'editor', 'reader'
 exports.before = {
@@ -17,7 +18,9 @@ exports.before = {
     })
   ],
   get: [
-    handleEan()
+    unless(isProvider('server'),
+      handleEan()
+    )
   ],
   create: [
     auth.restrictToRoles({

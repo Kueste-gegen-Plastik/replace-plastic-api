@@ -22,9 +22,6 @@ module.exports = function(sequelize, app) {
       allowNull: false,
       default: false
     },
-    text: {
-      type: Sequelize.STRING
-    },
     createdAt: {
       type: Sequelize.DATE
     },
