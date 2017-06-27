@@ -22,6 +22,11 @@ module.exports = function(sequelize, app) {
       allowNull: false,
       default: false
     },
+		reminded: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      default: false
+    },
     createdAt: {
       type: Sequelize.DATE
     },

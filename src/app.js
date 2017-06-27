@@ -10,7 +10,6 @@ const configuration = require('feathers-configuration');
 const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const bodyParser = require('body-parser');
-const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
 const mailstatus = require('./custom/mailstatus');
@@ -35,11 +34,10 @@ app.use(compress())
   .use(bodyParser.urlencoded({ extended: true }))
   .configure(hooks())
   .configure(rest())
-  .configure(socketio())
   .configure(services)
   .configure(middleware)
 
-
+// mailcron periodically sends mails to vendors
 const mailCron = new MailCron(app, mailEmitter);
 
 module.exports = app;

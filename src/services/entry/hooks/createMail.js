@@ -19,6 +19,7 @@ module.exports = function(options) {
           sent: 0,
           productId: hook.data.ProductId || null,
           vendorId: hook.data.VendorId || null,
+          reminded: 0,
           createdAt: new Date().getTime(),
           updatedAt: new Date().getTime()
         }).then(res => {

@@ -12,7 +12,7 @@ module.exports = function() {
 
   const sequelize = new Sequelize(app.get('mysql'), {
     dialect: 'mysql',
-    logging: console.log
+    // logging: console.log
   });
   app.set('sequelize', sequelize);
 
@@ -25,12 +25,16 @@ module.exports = function() {
   app.configure(mail);
   app.configure(mailstatus);
 
-  // Associate all of our models
+  // associate all models
   Object.keys(sequelize.models)
     .map(name => sequelize.models[name])
     .filter(model => model.associate !== undefined)
     .forEach(model => model.associate());
 
+  // models get synced here, not in the
+  // model definitions because there wouldn't
+  // be all relations available at initialization
+  // time
   sequelize.sync();
 
 };

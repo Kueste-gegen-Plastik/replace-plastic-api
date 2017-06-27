@@ -13,6 +13,7 @@
       "pass": "userpass"
     },
     "from": "foo@blurdybloop.com", // sender address
+    "reminderEmail": "foo@blurdybloop.com", // address to send reminder emails to
     "subject": "Hello 123 ✔" // Subject line
   },
   "auth": {
