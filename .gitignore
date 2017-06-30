@@ -29,6 +29,9 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+.synk
+.DS_Store
+Thumbs.db
 
 lib/
 data/
