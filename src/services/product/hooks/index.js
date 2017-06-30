@@ -5,7 +5,7 @@ const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
 const { unless, isProvider } = require('feathers-hooks-common')
 const handleEan = require('./handleEan');
-// 'admin', 'editor', 'reader'
+
 exports.before = {
   all: [
     auth.verifyToken(),
@@ -48,17 +48,6 @@ exports.after = {
   all: [],
   find: [],
   get: [],
-  create: [],
-  update: [],
-  patch: [],
-  remove: []
-};
-
-exports.error = {
-  all: [],
-  find: [],
-  get: [
-  ],
   create: [],
   update: [],
   patch: [],

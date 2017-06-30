@@ -11,6 +11,8 @@ const hooks = require('feathers-hooks');
 const rest = require('feathers-rest');
 const bodyParser = require('body-parser');
 const middleware = require('./middleware');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const services = require('./services');
 const mailstatus = require('./custom/mailstatus');
 const MailCron = require('./custom/mailcron');
@@ -20,6 +22,12 @@ const app = feathers();
 class MailEmitter extends EventEmitter {};
 const mailEmitter = new MailEmitter();
 
+const authLimiter = new rateLimit({
+  windowMs: 15*60*1000,
+  delayAfter: 3,
+  delayMs: 3*1000,
+  max: 5
+});
 
 app.configure(configuration(path.join(__dirname, '..')));
 
@@ -27,7 +35,10 @@ app.set('mailEmitter', mailEmitter);
 
 app.use(compress())
   .options('*', cors())
+  .use('/auth', authLimiter)
+  .use('/auth/local', authLimiter)
   .use(cors())
+  .use(helmet())
   .use(favicon(path.join(app.get('public'), 'favicon.ico')))
   .use('/', serveStatic(app.get('public')))
   .use(bodyParser.json())

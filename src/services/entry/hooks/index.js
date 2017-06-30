@@ -14,7 +14,7 @@ exports.before = {
   ],
   find: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin', 'editor']
     }),
     function(hook) {
         let sequelize = hook.app.get('sequelize');
@@ -25,7 +25,7 @@ exports.before = {
   ],
   get: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin', 'editor']
     })
   ],
   create: [
@@ -34,17 +34,17 @@ exports.before = {
   ],
   update: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin', 'editor']
     })
   ],
   patch: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin', 'editor']
     })
   ],
   remove: [
     auth.restrictToRoles({
-      roles: ['admin', 'editor', 'reader']
+      roles: ['admin', 'editor']
     })
   ]
 };

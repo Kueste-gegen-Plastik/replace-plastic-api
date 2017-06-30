@@ -21,12 +21,16 @@ exports.before = {
     })
   ],
   create: [
+    auth.restrictToRoles({
+      roles: ['admin', 'editor']
+    }),
     auth.hashPassword()
   ],
   update: [
     auth.restrictToRoles({
       roles: ['admin', 'editor']
-    })
+    }),
+    auth.hashPassword()
   ],
   patch: [
     auth.restrictToRoles({
