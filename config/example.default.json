@@ -16,6 +16,10 @@
     "reminderEmail": "foo@blurdybloop.com", // address to send reminder emails to
     "subject": "Hello 123 ✔" // Subject line
   },
+  "mailcron": {
+    "pattern": "*/5 * * * *",
+    "dayssince": "28"
+  },
   "auth": {
     "idField": "id",
     "token": {

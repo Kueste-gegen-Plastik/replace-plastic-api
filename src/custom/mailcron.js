@@ -15,12 +15,13 @@ class MailCron {
    * @param {String} pattern
    * @param {Integer} daysSince
    */
-  constructor(app, mailEmitter, pattern, daysSince) {
+  constructor(app, mailEmitter, daysSince) {
     this.app = app;
     this.config = app.get('mailserver');
+    this.cronconfig = app.get('mailcron');
     this.mailEmitter = mailEmitter;
-    this.daysSince = daysSince ? parseInt(daysSince, 10) : 28;
-    this.cron = cron.schedule(pattern || '*/5 * * * *', () => {
+    this.daysSince = parseInt(this.cronconfig.dayssince, 10);
+    this.cron = cron.schedule(this.cronconfig.pattern, () => {
       if(!this.active) return;
       this.fire();
     });
@@ -128,7 +129,7 @@ class MailCron {
     return this.app.service('mails').find({
       query: {
         createdAt: {
-          $lt: new Date() // new Date(new Date() - 24 * 60 * 60 * this.daysSince * 1000)
+          $lt: new Date(new Date() - 24 * 60 * 60 * this.daysSince * 1000)
         },
         sent: 0
       }
