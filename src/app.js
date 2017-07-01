@@ -29,6 +29,13 @@ const authLimiter = new rateLimit({
   max: 10,
   message: "Es wurden zu viele Zugriffe in kurzer Zeit erkannt. Bitte warten Sie 15 Minuten."
 });
+const statsLimiter = new rateLimit({
+  windowMs: 15*60*1000,
+  delayAfter: 3,
+  delayMs: 3*1000,
+  max: 10,
+  message: "Es wurden zu viele Zugriffe in kurzer Zeit erkannt. Bitte warten Sie 15 Minuten."
+});
 
 app.configure(configuration(path.join(__dirname, '..')));
 
@@ -38,6 +45,7 @@ app.use(compress())
   .options('*', cors())
   .use('/auth', authLimiter)
   .use('/auth/local', authLimiter)
+  .use('/stats', statsLimiter)
   .use(cors())
   .use(helmet())
   .use(favicon(path.join(app.get('public'), 'favicon.ico')))
