@@ -26,7 +26,8 @@ const authLimiter = new rateLimit({
   windowMs: 15*60*1000,
   delayAfter: 3,
   delayMs: 3*1000,
-  max: 5
+  max: 10,
+  message: "Es wurden zu viele Zugriffe in kurzer Zeit erkannt. Bitte warten Sie 15 Minuten."
 });
 
 app.configure(configuration(path.join(__dirname, '..')));

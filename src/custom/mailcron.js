@@ -15,7 +15,7 @@ class MailCron {
    * @param {String} pattern
    * @param {Integer} daysSince
    */
-  constructor(app, mailEmitter, daysSince) {
+  constructor(app, mailEmitter) {
     this.app = app;
     this.config = app.get('mailserver');
     this.cronconfig = app.get('mailcron');

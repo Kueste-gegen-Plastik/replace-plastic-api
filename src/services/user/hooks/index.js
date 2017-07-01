@@ -35,7 +35,8 @@ exports.before = {
   patch: [
     auth.restrictToRoles({
       roles: ['admin', 'editor']
-    })
+    }),
+    auth.hashPassword()
   ],
   remove: [
     auth.restrictToRoles({
