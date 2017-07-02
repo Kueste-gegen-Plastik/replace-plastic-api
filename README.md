@@ -44,4 +44,8 @@ All of the following endpoints can be accessed using different HTTP-Methods (fol
 
 
 ## Interface / Administration
-If you don't want to use Postman oder curl for accessing the API: We've got you covered: [There's a VueJS based, decoupled GUI over here](https://github.com/Kueste-gegen-Plastik/replace-plastic-admin-frontend).
+If you don't want to use Postman oder curl for accessing the API: We've got you covered: [There's a VueJS based, decoupled GUI over here](https://github.com/Kueste-gegen-Plastik/replace-plastic-admin-frontend).  
+
+- - - - 
+
+This project was built and is maintained with ❤ by [neuwaerts GmbH](http://www.neuwaerts.de) for "Küste gegen Plastik".
