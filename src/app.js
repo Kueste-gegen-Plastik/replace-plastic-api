@@ -57,6 +57,20 @@ app.use(compress())
   .configure(services)
   .configure(middleware)
 
+if(process.env.NODE_ENV === 'development') {
+  // create a default admin if no users are available
+  const userService = app.service('users')
+  userService.find({ query: {} }).then(response => {
+    const users = response.data || response
+    if (!users.length) {
+        userService.create({ username: 'admin', email: 'admin@example.com',  roles: 'admin', password: '1234' })
+        .then(user => {
+          console.log('user created', user)
+        })
+    }
+  });
+}
+
 // mailcron periodically sends mails to vendors
 const mailCron = new MailCron(app, mailEmitter);
 
