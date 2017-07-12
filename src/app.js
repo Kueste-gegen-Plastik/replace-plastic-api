@@ -14,7 +14,6 @@ const middleware = require('./middleware');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const services = require('./services');
-const mailstatus = require('./custom/mailstatus');
 const MailCron = require('./custom/mailcron');
 const EventEmitter = require('events');
 

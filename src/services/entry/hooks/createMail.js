@@ -1,6 +1,3 @@
-const OpenGtinDB = require('opengtindb-client');
-const Barcoder = require('barcoder');
-
 module.exports = function(options) {
   return function(hook) {
     return hook.app.service('mails').find({
@@ -12,6 +9,9 @@ module.exports = function(options) {
       },
       raw : true
     }).then(mail => {
+
+
+
       if(mail.hasOwnProperty('total') && mail.total > 0) {
         return Promise.resolve(hook);
       } else {

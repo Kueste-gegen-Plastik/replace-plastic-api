@@ -22,7 +22,6 @@ class MailCron {
     this.mailEmitter = mailEmitter;
     this.daysSince = parseInt(this.cronconfig.dayssince, 10);
     this.cron = cron.schedule(this.cronconfig.pattern, () => {
-      if(!this.active) return;
       this.fire();
     });
     this.mailer = nodemailer.createTransport(this.config);
@@ -47,6 +46,7 @@ class MailCron {
    * @returns {Promise}
    */
   fire() {
+    if(!this.active) return;
     return this.checkMailsToSend().then(mails => {
       return this.sendMails(mails);
     }).catch(err => {

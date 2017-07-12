@@ -3,6 +3,7 @@
 const hooks = require('./hooks');
 
 module.exports = function(){
+
   const app = this;
 
   // Initialize our service with any options it requires
@@ -20,6 +21,5 @@ module.exports = function(){
   mailstatusService.before(hooks.before);
   // Set up our after hooks
   mailstatusService.after(hooks.after);
-
 
 };

@@ -10,7 +10,7 @@ exports.before = {
     auth.populateUser(),
     auth.restrictToAuthenticated(),
     auth.restrictToRoles({
-      roles: ['admin']
+      roles: ['admin', 'editor']
     })
   ],
   find: [],
