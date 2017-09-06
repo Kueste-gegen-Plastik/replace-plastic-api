@@ -67,7 +67,7 @@ class MailCron {
       // get the vendor contact
       let foundEntries = [], foundVendor;
       this.app.service('vendors').get(mail.vendorId).then(vendor => {
-        if(!vendor || !vendor.hasOwnProperty('dataValues') || !vendor.dataValues.email) {
+        if(!vendor || !vendor.hasOwnProperty('email') || !vendor.email) {
           throw new Error('No valid vendor Data');
         }
         // get all entries that aren't sent yet
@@ -85,17 +85,17 @@ class MailCron {
         // get the product details for the mail
         return this.app.service('product').get(mail.productId);
       }).then(product => {
-        if(!product || !product.hasOwnProperty('dataValues') || !product.dataValues.detailname) {
+        if(!product || !product.hasOwnProperty('detailname') || !product.detailname) {
           throw new Error('No valid product found');
         }
         // create the mailtext from a swig template
         let mailText = vendortemplate({
           entriesamount: foundEntries.length,
-          product: product.dataValues.detailname
+          product: product.detailname
         });
         // send the mail via nodemailer
         return this.mailer.sendMail(Object.assign(this.config, {
-            to: foundVendor.dataValues.email,
+            to: foundVendor.email,
             html: mailText,
             text: htmlToText.fromString(mailText)
         }));
@@ -108,7 +108,7 @@ class MailCron {
         // set the status of all entries to "sent" so they won't
         // be counted again in the next mail
         return Promise.all(foundEntries.map(entry => {
-          return this.app.service('entries').patch(entry.dataValues.id, {
+          return this.app.service('entries').patch(entry.id, {
             sent: 1
           });
         }));
@@ -139,8 +139,8 @@ class MailCron {
         // filter for those mails that have a product and a
         // vendor assigned to them
         retVal = mails.data.filter(mail => {
-          return  mail.productId && mail.vendorId;
-        }).map(itm => itm.dataValues);
+          return mail.productId && mail.vendorId;
+        });
         if(retVal.length < mails.data.length) {
           // send mails to admin: reminder to add vendors to products
           this.sendReminderMails(mails);

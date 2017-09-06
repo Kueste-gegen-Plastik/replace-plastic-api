@@ -56,7 +56,7 @@ app.use(compress())
   .configure(services)
   .configure(middleware)
 
-if(process.env.NODE_ENV === 'development') {
+if(process.env.NODE_ENV !== 'production') {
   // create a default admin if no users are available
   const userService = app.service('users')
   userService.find({ query: {} }).then(response => {
