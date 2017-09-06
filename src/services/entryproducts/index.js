@@ -39,7 +39,9 @@ module.exports = function(){
             let id = idsResult.filter(itm => {
               return itm.ProductId === product.id;
             })[0];
-            return Object.assign(id, product);
+            product = Object.assign(product,id);
+            delete product.ProductId;
+            return product;
         })
       })
     }
