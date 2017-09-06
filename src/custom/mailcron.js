@@ -153,12 +153,11 @@ class MailCron {
   }
 
   sendReminderMails(mails) {
-
     // get all mails that have no related vendor or product
     // and send a reminder to the admin
     let mailsToSend = mails.data.filter(mail => {
-      return (!mail.productId || !mail.vendorId) && (!mail.reminded || mail.reminded === 0);
-    }).map(itm => itm.dataValues);
+      return mail && (!mail.productId || !mail.vendorId) && (!mail.reminded || mail.reminded === 0);
+    });
 
     if(!mailsToSend.length) return;
 
