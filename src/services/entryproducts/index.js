@@ -24,7 +24,7 @@ module.exports = function(){
       }).then(ids => {
         idsResult = ids.map(id => id.dataValues);
         return sequelize.models['Product'].findAll({
-          attributes: ['id', 'barcode', 'name', 'detailname', 'vendor'],
+          attributes: ['id', 'barcode', 'vendor', 'name', 'detailname'],
           where: {
             id: {
               $in: ids.map(itm => {
