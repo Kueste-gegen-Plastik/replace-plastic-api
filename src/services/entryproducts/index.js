@@ -41,8 +41,6 @@ module.exports = function(){
             })[0];
             return Object.assign(id, product);
         })
-      }).then(res => {
-
       })
     }
   });
