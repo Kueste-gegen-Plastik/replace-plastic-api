@@ -24,7 +24,7 @@ module.exports = function(){
       }).then(ids => {
         idsResult = ids.map(id => id.dataValues);
         return sequelize.models['Product'].findAll({
-          attributes: ['id', 'barcode', 'name', 'detailname'],
+          attributes: ['id', 'barcode', 'name', 'detailname', 'vendor'],
           where: {
             id: {
               $in: ids.map(itm => {
@@ -41,6 +41,8 @@ module.exports = function(){
             })[0];
             return Object.assign(id, product);
         })
+      }).then(res => {
+
       })
     }
   });
