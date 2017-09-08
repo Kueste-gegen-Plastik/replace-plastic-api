@@ -5,3 +5,15 @@
 <p>Wir hoffen, dass diese Information über die Wünsche und Werte Ihrer Zielgruppen für Sie hilfreich ist, um bessere Lösungen für Ihre Kunden zu verwirklichen.</p>
 <p>Für mehr Informationen zu unserem Projekt besuchen Sie gern unsere Website <a href="http://www.replaceplastic.de">ReplacePlastic.de</a></p>
 <p>Mit freundlichen Grüßen,<br/>das Team vom Verein Küste gegen Plastik e.V.</p>
+<br /><br />
+<p>
+Küste gegen Plastik e.V.<br />
+E-Mail: <a href="mailto:post@kueste-gegen-plastik.de">post@kueste-gegen-plastik.de</a><br />
+Internet: <a href="http://kueste-gegen-plastik.de">kueste-gegen-plastik.de</a><br /><br />
+Registriert im Vereinsregister beim Amtgsgericht Flensburg unter VR 2821 FL.<br />
+Sitz: Reimersbude 12, 25889 Witzwort<br />
+Vorstand i. S. d. § 26 BGB<br />
+Jennifer Timrott, Vorsitzende<br />
+Andreas Halle, stellv. Vorsitzender<br />
+Dr. Thomas Daußmann, Kassenwart<br />
+</p>
