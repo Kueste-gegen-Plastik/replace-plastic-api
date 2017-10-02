@@ -19,4 +19,8 @@ ignore:
     - swig > uglify-js:
         reason: None given
         expires: '2017-07-28T21:01:32.303Z'
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:uglify-js:20151024':
+    - swig > uglify-js:
+        patched: '2017-10-02T14:57:26.096Z'
