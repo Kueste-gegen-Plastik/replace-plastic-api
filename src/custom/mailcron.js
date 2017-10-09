@@ -145,15 +145,16 @@ class MailCron {
         }
 
         foundEntries = this.buildMailData(entries);
+        var fullAmount = foundEntries.reduce((a,b) => {
+          if(a.hasOwnProperty('count')) { // first iteration
+            return (a.count ? parseInt(a.count,10) : 0) + parseInt(b.count,10);
+          }
+          return parseInt(a, 10) + parseInt(b.count,10);
+        });
         let mailText = vendortemplate({
           foundEntries: foundEntries,
           productsString: foundEntries.map(product => product.productname).join(', '),
-          fullAmount: foundEntries.reduce((a,b) => {
-            if(a.hasOwnProperty('count')) { // first iteration
-              return (a.count ? parseInt(a.count,10) : 0) + parseInt(b.count,10);
-            }
-            return parseInt(a, 10) + parseInt(b.count,10);
-          })
+          fullAmount: typeof fullAmount === 'object' ? 'Einige' : fullAmount
         });
 
         var mail = await this.mailer.sendMail(Object.assign(this.config, {
