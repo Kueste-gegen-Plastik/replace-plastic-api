@@ -68,8 +68,8 @@ module.exports = function(options) {
       raw : true
     }).then(products => {
       // product already existant, add the product id to the payload
-      if(products.hasOwnProperty('total') && products.total > 0) {
-        if(products.data[0].name) {
+      if(products.hasOwnProperty('total') && parseInt(products.total) > 0) {
+        if(products.data[0].name || products.data[0].detailname) {
           hook.result = products.data;
           return Promise.resolve(hook);
         } else {

@@ -157,7 +157,7 @@ class MailCron {
         });
 
         var mail = await this.mailer.sendMail(Object.assign(this.config, {
-          to: typeof(process.env.NODE_ENV) !== 'undefined' && process.env.NODE_ENV === 'development' ? this.config.reminderEmail : vendor.email,
+          to: typeof(process.env.NODE_ENV) !== 'undefined' && process.env.NODE_ENV === 'development' ? this.config.reminderEmail : [this.config.reminderEmail, vendor.email],
           html: mailText,
           text: htmlToText.fromString(mailText)
         }));
