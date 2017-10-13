@@ -145,12 +145,16 @@ class MailCron {
         }
 
         foundEntries = this.buildMailData(entries);
-        var fullAmount = foundEntries.reduce((a,b) => {
-          if(a.hasOwnProperty('count')) { // first iteration
-            return (a.count ? parseInt(a.count,10) : 0) + parseInt(b.count,10);
-          }
-          return parseInt(a, 10) + parseInt(b.count,10);
-        });
+        if(foundEntries.length>1) {
+          var fullAmount = foundEntries.reduce((a,b) => {
+            if(a.hasOwnProperty('count')) { // first iteration
+              return (a.count ? parseInt(a.count,10) : 0) + parseInt(b.count,10);
+            }
+            return parseInt(a, 10) + parseInt(b.count,10);
+          });
+        } else {
+          fullAmount = foundEntries[0].count;
+        }
         let mailText = vendortemplate({
           foundEntries: foundEntries,
           productsString: foundEntries.map(product => product.productname).join(', '),
@@ -177,7 +181,7 @@ class MailCron {
         let entriesToPatch = entries.data.map(entry => {
           return entry.id;
         });
-        await this.app.service('entries').patch(entry.id, {
+        await this.app.service('entries').patch(entriesToPatch, {
           sent: 1
         });
         this.log("info", `Entries patched (sent): ${entriesToPatch.join(',')}`);
