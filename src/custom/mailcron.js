@@ -161,11 +161,15 @@ class MailCron {
           fullAmount: typeof fullAmount === 'object' ? 'Einige' : fullAmount
         });
 
-        var mail = await this.mailer.sendMail(Object.assign(this.config, {
-          to: typeof(process.env.NODE_ENV) !== 'undefined' && process.env.NODE_ENV === 'development' ? this.config.reminderEmail : [this.config.reminderEmail, vendor.email],
+        let mailConfig = Object.assign(this.config, {
+          to: typeof(process.env.NODE_ENV) !== 'undefined' && process.env.NODE_ENV === 'development' ? this.config.reminderEmail : vendor.email,
           html: mailText,
           text: htmlToText.fromString(mailText)
-        }));
+        });
+        if(typeof(process.env.NODE_ENV) === 'undefined' || process.env.NODE_ENV !== 'development') {
+          mailConfig.bcc = this.config.reminderEmail;
+        }
+        var mail = await this.mailer.sendMail(mailConfig);
         if(!mail.accepted.length) {
           throw new Error(`No Mails could be sent to found ${vendor.email}`);
         }
